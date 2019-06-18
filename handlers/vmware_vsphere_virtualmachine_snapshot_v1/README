@@ -1,0 +1,43 @@
+== VMWare_VSphere_VirtualMachine_Snapshot_V1
+Takes a snapshot of the target VMWare VSphere virtual machine matching.
+
+=== Parameters
+[VM Name]
+  The name of the VM that you want to suspend.
+[Name]
+  The name of the snapshot.
+[Description]
+  The description of the snapshot.
+[Include Memory Dump?]
+  If true, a dump of the internal state of the VM is included in the snapshot.
+[Quiesce the File System?]
+  If true, the snapshot will quiesce the file system to assure that a disk
+  snapshot represents a consistent state of the guest file systems.
+
+==== Sample Configuration
+VM Name:                      Test Task VM
+Name:                         Task Snapshot
+Description:                  Snapshot taken from Task
+Include Memory Dump?          true
+Quiesce the File System?      false
+
+=== Results
+There are no results returned by this handler.
+
+=== Detailed Description
+This handler is designed to take a snapshot of the virtual machine on a VMWare 
+VSphere server that matches the name supplied as a parameter. It logs in to the 
+VSphere server using the server's administrative URL, user ID and password that 
+are set as info_value records for the task.  Once logged in, the virtual machine 
+name is verified and then a signal is sent to it to take a snapshot of the VM. 
+Once the signal is sent, the handler does not wait for a response and 
+immediately exits.
+
+This handler uses the VMWare VI (vSphere) Java API (see
+http://vijava.sourceforge.net/ for more information).  The api is deployed as a
+Java archive file (jar) and is stored in this handler's vendor directory.  If
+the vijava jar file is stored somewhere else on the classpath, the jar file
+stored in this handler's vendor directory is not used.  It is recommended that
+there are no vijava jar files stored anywhere on the classpath, and that all
+VMWare VSphere handlers contain the same vijava jar file in their vendor
+directory.

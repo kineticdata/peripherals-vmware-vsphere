@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taskDefinition id="vmware_vsphere_virtualmachine_clone" name="VMWare VSphere Virtual Machine Clone" schema_version="1.0" version="1">
+    <author>support@kineticdata.com</author>
+    <description>Clones the given virtual machine.</description>
+    <helpurl>http://ktc.kineticdata.com/handler/vmware_vsphere_virtualmachine_clone/1</helpurl>
+    <visible>false</visible>
+    <deferrable>false</deferrable>
+    <parameters>
+        <parameter id="template_name" label="VM Template Name" required="true" 
+            tooltip="The name of the VM that you want to clone." />
+        <parameter id="clone_name" label="VM Clone Name" required="true" 
+            tooltip="The name of the new cloned machine." />
+        <parameter id="mark_as_template" label="Mark as Template?" required="true"
+            tooltip="Specifies whether or not the new virtual machine should be marked as a template. Value is either true or false.">false</parameter>
+        <parameter id="datacenter_name" label="Datacenter Name" required="true"
+            tooltip="The name of the datacenter where you want the new Virtual Machine stored." />
+        <parameter id="resource_pool" label="Resource Pool" required="false"
+            tooltip="The name of the resource pool where you want the new Virtual Machine stored. If left blank, the new Virtual Machine will be placed in the default Resource Pool of the templates host." />
+        <parameter id="power_on" label="Power On?" required="true"
+            tooltip="Specifies whether or not the new virtual machine should be powered on after the clone is complete. Value is either true or false.">false</parameter>
+    </parameters>
+    <handler name="vmware_vsphere_virtualmachine_clone" version="1">
+        <infos>
+            <info name="server_url">&lt;%= @info['server_url'] %&gt;</info>
+            <info name="username">&lt;%= @info['username'] %&gt;</info>
+            <info name="password">&lt;%= @info['password'] %&gt;</info>
+            <info name="enable_debug_logging">&lt;%= @info['enable_debug_logging'] %&gt;</info>
+        </infos>
+        <parameters>
+            <parameter name='template_name'>&lt;%= @parameters['template_name'] %&gt;</parameter>
+            <parameter name='clone_name'>&lt;%= @parameters['clone_name'] %&gt;</parameter>
+            <parameter name='datacenter_name'>&lt;%= @parameters['datacenter_name'] %&gt;</parameter>
+            <parameter name='resource_pool'>&lt;%= @parameters['resource_pool'] %&gt;</parameter>
+            <parameter name='mark_as_template'>&lt;%= @parameters['mark_as_template'] %&gt;</parameter>
+            <parameter name='power_on'>&lt;%= @parameters['power_on'] %&gt;</parameter>
+        </parameters>
+    </handler>
+    <results format="xml">
+        <result name="task_id"></result>
+    </results>
+</taskDefinition>

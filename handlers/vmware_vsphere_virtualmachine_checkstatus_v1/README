@@ -1,0 +1,34 @@
+== VMWare_VSphere_VirtualMachine_CheckStatus_V1
+Given a task id checks the current status of that task.
+
+=== Parameters
+[Task Id]
+  The Id of the Task that you want to check the status of.
+
+==== Sample Configuration
+Task Id:                          task-2843
+
+=== Results
+[State]
+  The current state of the task. Options are error, success, queued, running.
+[Message]
+  A message that corresponds with the state (if needed).
+
+
+=== Detailed Description
+This handler is designed to check the status of a virtual machine task on a 
+VMWare VSphere server that matches the given task id. It logs in to the VSphere 
+server using the server's administrative URL, user ID and password that are set 
+as info_value records for the task.  Once logged in, a Managed Reference Object
+is created based on the task id so that the Task Object can be re-created. Once 
+that is created, the Task object is traversed to retrieve and return the state
+and message for the task.
+
+This handler uses the VMWare VI (vSphere) Java API (see
+http://vijava.sourceforge.net/ for more information).  The api is deployed as a
+Java archive file (jar) and is stored in this handler's vendor directory.  If
+the vijava jar file is stored somewhere else on the classpath, the jar file
+stored in this handler's vendor directory is not used.  It is recommended that
+there are no vijava jar files stored anywhere on the classpath, and that all
+VMWare VSphere handlers contain the same vijava jar file in their vendor
+directory.

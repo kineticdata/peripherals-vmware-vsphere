@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taskDefinition id="vmware_vsphere_virtualmachine_reboot" name="VMWare VSphere Virtual Machine Reboot" schema_version="1.0" version="1">
+    <author>support@kineticdata.com</author>
+    <description>Reboots the specified VMWare VSphere virtual machine.  This triggers a shutdown of the guest operating system followed by an automatic power on.  This handler requires the target virtual machine to have VMWare Tools installed.</description>
+    <helpurl>http://ktc.kineticdata.com/handler/vmware_vsphere_virtualmachine_reboot/1</helpurl>
+    <visible>false</visible>
+    <deferrable>false</deferrable>
+    <parameters>
+        <parameter id="vm_name" label="VM Name" required="true" tooltip="The name of the VM that you want to reboot" />
+    </parameters>
+    <handler name="vmware_vsphere_virtualmachine_reboot" version="1">
+        <infos>
+            <info name="server_url">&lt;%= @info['server_url'] %&gt;</info>
+            <info name="username">&lt;%= @info['username'] %&gt;</info>
+            <info name="password">&lt;%= @info['password'] %&gt;</info>
+            <info name="enable_debug_logging">&lt;%= @info['enable_debug_logging'] %&gt;</info>
+        </infos>
+        <parameters>
+            <parameter name='vm_name'>&lt;%= @parameters['vm_name'] %&gt;</parameter>
+        </parameters>
+    </handler>
+    <results format="xml"/>
+</taskDefinition>

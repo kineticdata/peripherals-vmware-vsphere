@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taskDefinition id="vmware_vsphere_virtualmachine_shutdown" name="VMWare VSphere Virtual Machine Shutdown" schema_version="1.0" version="1">
+    <author>support@kineticdata.com</author>
+    <description>Shuts down the specified VMWare VSphere virtual machine matching.  This triggers a shutdown of the guest operating system before powering the virtual machine off.  This handler requires the target virtual machine to have VMWare Tools installed.</description>
+    <helpurl>http://ktc.kineticdata.com/handler/vmware_vsphere_virtualmachine_shutdown/1</helpurl>
+    <visible>false</visible>
+    <deferrable>false</deferrable>
+    <parameters>
+        <parameter id="vm_name" label="VM Name" required="true" tooltip="The name of the VM that you want to shutdown" />
+    </parameters>
+    <handler name="vmware_vsphere_virtualmachine_shutdown" version="1">
+        <infos>
+            <info name="server_url">&lt;%= @info['server_url'] %&gt;</info>
+            <info name="username">&lt;%= @info['username'] %&gt;</info>
+            <info name="password">&lt;%= @info['password'] %&gt;</info>
+            <info name="enable_debug_logging">&lt;%= @info['enable_debug_logging'] %&gt;</info>
+        </infos>
+        <parameters>
+            <parameter name='vm_name'>&lt;%= @parameters['vm_name'] %&gt;</parameter>
+        </parameters>
+    </handler>
+    <results format="xml"/>
+</taskDefinition>

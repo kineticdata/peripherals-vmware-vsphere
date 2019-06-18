@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taskDefinition id="vmware_vsphere_virtualmachine_poweroff" name="VMWare VSphere Virtual Machine PowerOff" schema_version="1.0" version="1">
+    <author>support@kineticdata.com</author>
+    <description>Powers off the specified VMWare VSphere virtual machine.  This simulates a hard reboot and does not attempt to safely shut down the guest operating system.</description>
+    <helpurl>http://ktc.kineticdata.com/handler/vmware_vsphere_virtualmachine_poweroff/1</helpurl>
+    <visible>false</visible>
+    <deferrable>false</deferrable>
+    <parameters>
+        <parameter id="vm_name" label="VM Name" required="true" tooltip="The name of the VM that you want to power off" />
+    </parameters>
+    <handler name="vmware_vsphere_virtualmachine_poweroff" version="1">
+        <infos>
+            <info name="server_url">&lt;%= @info['server_url'] %&gt;</info>
+            <info name="username">&lt;%= @info['username'] %&gt;</info>
+            <info name="password">&lt;%= @info['password'] %&gt;</info>
+            <info name="enable_debug_logging">&lt;%= @info['enable_debug_logging'] %&gt;</info>
+        </infos>
+        <parameters>
+            <parameter name='vm_name'>&lt;%= @parameters['vm_name'] %&gt;</parameter>
+        </parameters>
+    </handler>
+    <results format="xml"/>
+</taskDefinition>

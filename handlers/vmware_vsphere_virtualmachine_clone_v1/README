@@ -1,0 +1,54 @@
+== VMWare_VSphere_VirtualMachine_Clone_V1
+Clones the given virtual machine.
+
+=== Parameters
+[VM Template Name]
+  The name of the VM that you want to clone.
+[VM Clone Name]
+  The name of the new cloned machine.
+[Mark as Template?]
+  Specifies whether or not the new virtual machine should be marked as a template. 
+  Value is either true or false.
+[Datacenter Name]
+  The name of the datacenter where you want the new Virtual Machine stored.
+[Resource Pool]
+  The name of the resource pool where you want the new Virtual Machine stored. 
+  If left blank, the new Virtual Machine will be placed in the default Resource 
+  Pool of the templates host.
+[Power On?]
+  Specifies whether or not the new virtual machine should be powered on after 
+  the clone is complete. Value is either true or false.
+
+==== Sample Configuration
+VM Template Name:                      Test Task VM
+VM Clone Name:                         Task Snapshot
+Mark as Template?:                     false
+Datacenter Name:                       Datacenter
+Resource Pool:                         Resources
+Power On?                              true
+
+=== Results
+[Task Id]
+  Returns the task id of the clone so that the status can be easily checked 
+  later on.
+
+=== Detailed Description
+This handler is designed to clone a virtual machine on a VMWare VSphere server 
+that matches the name supplied as a parameter. It logs in to the VSphere server 
+using the server's administrative URL, user ID and password that are set as 
+info_value records for the task.  Once logged in, the virtual machine that the
+clone will be based off of is verified to make sure that the machine exists. 
+The handler then searches for and returns the datacenter and the resource pool 
+if it was specified. If the resource pool was not specified, the main resource
+pool of the host that that the template machine is stored on will be found and 
+used. Once the signal is sent, the handler waits long enough to catch immediate 
+errors, returns the task id and then exits.
+
+This handler uses the VMWare VI (vSphere) Java API (see
+http://vijava.sourceforge.net/ for more information).  The api is deployed as a
+Java archive file (jar) and is stored in this handler's vendor directory.  If
+the vijava jar file is stored somewhere else on the classpath, the jar file
+stored in this handler's vendor directory is not used.  It is recommended that
+there are no vijava jar files stored anywhere on the classpath, and that all
+VMWare VSphere handlers contain the same vijava jar file in their vendor
+directory.

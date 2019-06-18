@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taskDefinition id="vmware_vsphere_virtualmachine_snapshot" name="VMWare VSphere Virtual Machine Snapshot" schema_version="1.0" version="1">
+    <author>support@kineticdata.com</author>
+    <description>Takes a snapshot of the target VMWare VSphere virtual machine matching.</description>
+    <helpurl>http://ktc.kineticdata.com/handler/vmware_vsphere_virtualmachine_snapshot/1</helpurl>
+    <visible>false</visible>
+    <deferrable>false</deferrable>
+    <parameters>
+        <parameter id="vm_name" label="VM Name" required="true" 
+            tooltip="The name of the VM that you want to take a snapshot of." />
+        <parameter id="name" label="Name" required="true" 
+            tooltip="The name of the snapshot." />
+        <parameter id="description" label="Description" required="false" 
+            tooltip="The description of the snapshot." />
+        <parameter id="include_memory_dump" label="Include Memory Dump?" required="true" menu="true,false"
+            tooltip="If true, a dump of the internal state of the VM is included in the snapshot.">false</parameter>
+        <parameter id="quiesce_file_system" label="Quiesce the File System?" required="true" menu="true,false"
+            tooltip="If true, the snapshot will quiesce the file system to assure that a disk snapshot represents a consistent state of the guest file systems.">false</parameter>
+    </parameters>
+    <handler name="vmware_vsphere_virtualmachine_snapshot" version="1">
+        <infos>
+            <info name="server_url">&lt;%= @info['server_url'] %&gt;</info>
+            <info name="username">&lt;%= @info['username'] %&gt;</info>
+            <info name="password">&lt;%= @info['password'] %&gt;</info>
+            <info name="enable_debug_logging">&lt;%= @info['enable_debug_logging'] %&gt;</info>
+        </infos>
+        <parameters>
+            <parameter name='vm_name'>&lt;%= @parameters['vm_name'] %&gt;</parameter>
+            <parameter name='name'>&lt;%= @parameters['name'] %&gt;</parameter>
+            <parameter name='description'>&lt;%= @parameters['description'] %&gt;</parameter>
+            <parameter name='include_memory_dump'>&lt;%= @parameters['include_memory_dump'] %&gt;</parameter>
+            <parameter name='quiesce_file_system'>&lt;%= @parameters['quiesce_file_system'] %&gt;</parameter>
+        </parameters>
+    </handler>
+    <results format="xml"/>
+</taskDefinition>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taskDefinition id="vmware_vsphere_virtualmachine_clone_advanced" name="VMWare VSphere Virtual Machine Clone Advanced" schema_version="1.0" version="1">
+    <author>support@kineticdata.com</author>
+    <description>Clones the given virtual machine.</description>
+    <helpurl>http://ktc.kineticdata.com/handler/vmware_vsphere_virtualmachine_clone_advanced/1</helpurl>
+    <visible>false</visible>
+    <deferrable>false</deferrable>
+    <parameters>
+        <parameter id="template_name" label="VM Template Name" required="true" 
+            tooltip="The name of the VM that you want to clone." />
+        <parameter id="clone_name" label="VM Clone Name" required="true" 
+            tooltip="The name of the new cloned machine." />
+        <parameter id="mark_as_template" label="Mark as Template?" required="true"
+            tooltip="Specifies whether or not the new virtual machine should be marked as a template. Value is either true or false.">false</parameter>
+        <parameter id="number_of_cpus" label="Number of CPUs" required="false"
+            tooltip="Number of CPUs to be allocated for the new VM. If left blank, the number will be carried over from the cloned machine." />
+        <parameter id="memory_in_mb" label="Memory In MB" required="false"
+            tooltip="Memory in MB to be allocated for the new VM. If left blank, the memory allocation will be carried over from the cloned machine."/>
+        <parameter id="primary_disk_in_gb" label="Primary Disk in GB" required="fase"
+            tooltip="The amount of GB to allocate to the primary disk in the new vm. If left blank, the primary disk allocation will be carreid over from the clone machine."/>
+        <parameter id="datacenter_name" label="Datacenter Name" required="false"
+            tooltip="The name of the datacenter where you want the new Virtual Machine stored. If left blank, the new Virtual Machine will be placed in VM Folder in the templates Datacenter." />
+        <parameter id="datastore" label="Datastore" required="false"
+            tooltip="The name of the datastore that you want to put the new Virtual Machine in." />
+        <parameter id="folder" label="Folder" required="false"
+            tooltip="The name of the folder that you want to put the new Virtual Machine in." />
+        <parameter id="resource_pool" label="Resource Pool" required="false"
+            tooltip="The name of the resource pool where you want the new Virtual Machine stored. If left blank, the new Virtual Machine will be placed in the default Resource Pool of the templates host." />
+        <parameter id="customization_spec" label="Customization Spec" required="false"
+            tooltip="The name of the customization spec that you want to use to clone to the new Virtual Machine." />
+        <parameter id="ip_address" label="IP Address" required="false"
+            tooltip="The ip address that you want to give to the new Virtual Machine." />
+        <parameter id="gateway" label="Gateway" required="false"
+            tooltip="The gateway address that corresponds with the IP Address you are giving the Virtual Machine." />
+        <parameter id="subnet_mask" label="Subnet Mask" required="false"
+            tooltip="The subnet mask that corresponds with the IP Address you are giving the Virtual Machine." />
+        <parameter id="cluster" label="Cluster" required="false"
+            tooltip="The cluster that you want to assign to the new Virtual Machine." />
+        <parameter id="port_group" label="Port Group" required="false"
+            tooltip="The name of the port group that you want to assign to the new Virtual Machine." />
+        <parameter id="power_on" label="Power On?" required="true"
+            tooltip="Specifies whether or not the new virtual machine should be powered on after the clone is complete. Value is either true or false.">false</parameter>
+    </parameters>
+    <handler name="vmware_vsphere_virtualmachine_clone_advanced" version="1">
+        <infos>
+            <info name="server_url">&lt;%= @info['server_url'] %&gt;</info>
+            <info name="username">&lt;%= @info['username'] %&gt;</info>
+            <info name="password">&lt;%= @info['password'] %&gt;</info>
+            <info name="enable_debug_logging">&lt;%= @info['enable_debug_logging'] %&gt;</info>
+        </infos>
+        <parameters>
+            <parameter name='template_name'>&lt;%= @parameters['template_name'] %&gt;</parameter>
+            <parameter name='clone_name'>&lt;%= @parameters['clone_name'] %&gt;</parameter>
+            <parameter name='number_of_cpus'>&lt;%= @parameters['number_of_cpus'] %&gt;</parameter>
+            <parameter name='memory_in_mb'>&lt;%= @parameters['memory_in_mb'] %&gt;</parameter>
+            <parameter name='primary_disk_in_gb'>&lt;%= @parameters['primary_disk_in_gb'] %&gt;</parameter>
+            <parameter name='datacenter_name'>&lt;%= @parameters['datacenter_name'] %&gt;</parameter>
+            <parameter name='datastore'>&lt;%= @parameters['datastore'] %&gt;</parameter>
+            <parameter name='folder'>&lt;%= @parameters['folder'] %&gt;</parameter>
+            <parameter name='resource_pool'>&lt;%= @parameters['resource_pool'] %&gt;</parameter>
+            <parameter name='customization_spec'>&lt;%= @parameters['customization_spec'] %&gt;</parameter>
+            <parameter name='ip_address'>&lt;%= @parameters['ip_address'] %&gt;</parameter>
+            <parameter name='gateway'>&lt;%= @parameters['gateway'] %&gt;</parameter>
+            <parameter name='subnet_mask'>&lt;%= @parameters['subnet_mask'] %&gt;</parameter>
+            <parameter name='cluster'>&lt;%= @parameters['cluster'] %&gt;</parameter>
+            <parameter name='port_group'>&lt;%= @parameters['port_group'] %&gt;</parameter>
+            <parameter name='mark_as_template'>&lt;%= @parameters['mark_as_template'] %&gt;</parameter>
+            <parameter name='power_on'>&lt;%= @parameters['power_on'] %&gt;</parameter>
+        </parameters>
+    </handler>
+    <results format="xml">
+        <result name="task_id"></result>
+    </results>
+</taskDefinition>

@@ -1,0 +1,36 @@
+== VMWare_VSphere_VirtualMachine_Update_CPU_V1
+Updates the number of CPUs for a Virtual Machine.
+
+=== Parameters
+[VM Name]
+  The name of the VM that you want to update.
+[Number of CPUs]
+  The number of CPUs to be allocated to the VM.
+
+==== Sample Configuration
+VM Name:                      Test Task VM
+Number of CPUs:                        2
+
+=== Results
+[Task Id]
+  Returns the task id of the task so that the status can be easily checked 
+  later on.
+
+=== Detailed Description
+This handler is designed to update a virtual machine on a VMWare VSphere server 
+that matches the name supplied as a parameter. It logs in to the VSphere server 
+using the server's administrative URL, user ID and password that are set as 
+info_value records for the task.  Once logged in, the virtual machine that will
+be updated is verified to make sure that the machine exists. Then a reconfigure
+command will be sent to vSphere to update the number of CPUs for the specified 
+VM. Once the signal is sent, the handler waits long enough to catch immediate 
+errors, returns the task id and then exits.
+
+This handler uses the VMWare VI (vSphere) Java API (see
+http://vijava.sourceforge.net/ for more information).  The api is deployed as a
+Java archive file (jar) and is stored in this handler's vendor directory.  If
+the vijava jar file is stored somewhere else on the classpath, the jar file
+stored in this handler's vendor directory is not used.  It is recommended that
+there are no vijava jar files stored anywhere on the classpath, and that all
+VMWare VSphere handlers contain the same vijava jar file in their vendor
+directory.

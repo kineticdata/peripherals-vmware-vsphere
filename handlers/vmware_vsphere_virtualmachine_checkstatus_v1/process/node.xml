@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taskDefinition id="vmware_vsphere_virtualmachine_checkstatus" name="VMWare VSphere Virtual Machine Check Status" schema_version="1.0" version="1">
+    <author>support@kineticdata.com</author>
+    <description>Given a task id checks the current status of that task.</description>
+    <helpurl>http://ktc.kineticdata.com/handler/vmware_vsphere_virtualmachine_checkstatus/1</helpurl>
+    <visible>false</visible>
+    <deferrable>false</deferrable>
+    <parameters>
+        <parameter id="task_id" label="Task Id" required="true" 
+            tooltip="The Id of the Task that you want to check the status of." />
+    </parameters>
+    <handler name="vmware_vsphere_virtualmachine_checkstatus" version="1">
+        <infos>
+            <info name="server_url">&lt;%= @info['server_url'] %&gt;</info>
+            <info name="username">&lt;%= @info['username'] %&gt;</info>
+            <info name="password">&lt;%= @info['password'] %&gt;</info>
+            <info name="enable_debug_logging">&lt;%= @info['enable_debug_logging'] %&gt;</info>
+        </infos>
+        <parameters>
+            <parameter name='task_id'>&lt;%= @parameters['task_id'] %&gt;</parameter>
+        </parameters>
+    </handler>
+    <results format="xml">
+        <result name="state"/>
+        <result name="message"/>
+    </results>
+</taskDefinition>

@@ -1,0 +1,96 @@
+== VMWare_VSphere_VirtualMachine_Clone_Advanced_V1
+Clones the given virtual machine with extra options.
+
+=== Parameters
+[VM Template Name]
+  The name of the VM that you want to clone.
+[VM Clone Name]
+  The name of the new cloned machine.
+[Mark as Template?]
+  Specifies whether or not the new virtual machine should be marked as a template. 
+  Value is either true or false.
+[Number of CPUs]
+  Number of CPUs to be allocated for the new VM. If left blank, the number will 
+  be carried over from the cloned machine.
+[Memory in MB]
+  Memory in MB to be allocated for the new VM. If left blank, the memory 
+  allocation will be carried over from the cloned machine.
+[Primary Disk in GB]
+  The amount of GB to allocate to the primary disk in the new vm. If left blank, 
+  the primary disk allocation will be carreid over from the clone machine.
+[Datacenter Name]
+  The name of the datacenter where you want the new Virtual Machine stored.
+[Datastore]
+  The name of the datastore or datastore cluster that you want to put the new
+  Virtual Machine in.
+[Folder]
+  The name of the folder that you want to put the new Virtual Machine in.
+[Resource Pool]
+  The name of the resource pool where you want the new Virtual Machine stored. 
+  If left blank, the new Virtual Machine will be placed in the default Resource 
+  Pool of the templates host.
+[Customization Spec]
+  The name of the customization spec that you want to use to clone to the new 
+  Virtual Machine.
+[IP Address]
+  The ip address that you want to give to the new Virtual Machine.
+[Gateway]
+  The gateway address that corresponds with the IP Address you are giving the 
+  Virtual Machine.
+[Subnet Mask]
+  The subnet mask that corresponds with the IP Address you are giving the 
+  Virtual Machine.
+[Cluster]
+  The cluster that you want to assign to the new Virtual Machine.
+[Port Group]
+  The name of the port group that you want to assign to the new Virtual Machine.
+[Power On?]
+  Specifies whether or not the new virtual machine should be powered on after 
+  the clone is complete. Value is either true or false.
+
+==== Sample Configuration
+VM Template Name:                      Test Task VM
+VM Clone Name:                         Task Snapshot
+Mark as Template?:                     false
+Number of CPUs:                        2
+Memory in MB:                          2048
+Primary Disk in GB:                    35
+Datacenter Name:                       Datacenter
+Datastore:                             Primary_Datastores
+Folder:                                Kinetic
+Resource Pool:                         Resources
+Customization Spec:                    Ubuntu_14.4_with_chef
+IP Address:                            90.161.151.208
+Gateway:                               90.161.1.1
+Subnet Mask:                           255.255.255.252
+Cluster:                               Primary_Cluster
+Port Group:                            Kinetic_01
+Power On?                              true
+
+=== Results
+[Task Id]
+  Returns the task id of the clone so that the status can be easily checked 
+  later on.
+
+=== Detailed Description
+This handler is designed to clone a virtual machine on a VMWare VSphere server 
+that matches the name supplied as a parameter. This version of the handler
+contains more options in the cloning process that the standard vmware clone
+handler does. It logs in to the VSphere server using the server's administrative 
+URL, user ID and password that are set as info_value records for the task.  Once 
+logged in, the virtual machine that the clone will be based off of is verified 
+to make sure that the machine exists. The handler then searches for and returns 
+the datacenter and the resource pool if it was specified. If the resource pool 
+was not specified, the main resource pool of the host that that the template 
+machine is stored on will be found and used. Once the signal is sent, the 
+handler waits long enough to catch immediate errors, returns the task id and 
+then exits.
+
+This handler uses the VMWare VI (vSphere) Java API (see
+http://vijava.sourceforge.net/ for more information).  The api is deployed as a
+Java archive file (jar) and is stored in this handler's vendor directory.  If
+the vijava jar file is stored somewhere else on the classpath, the jar file
+stored in this handler's vendor directory is not used.  It is recommended that
+there are no vijava jar files stored anywhere on the classpath, and that all
+VMWare VSphere handlers contain the same vijava jar file in their vendor
+directory.

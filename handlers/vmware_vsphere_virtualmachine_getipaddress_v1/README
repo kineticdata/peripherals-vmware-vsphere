@@ -1,0 +1,30 @@
+== VMWare_VSphere_VirtualMachine_Getipaddress_V1
+Gets an ip address from a Virtual Machine.
+
+=== Parameters
+[VM Name]
+  The name of the Virtual Machine to get the ip address of.
+
+==== Sample Configuration
+VM Name:                            Test Task VM
+
+=== Results
+[Ip Address]
+  The ip address of the given Virtual Machine.
+
+=== Detailed Description
+This handler is designed to get the ip address of a virtual machine on a VMWare 
+VSphere server that matches the name supplied as a parameter. It logs in to the 
+VSphere server using the server's administrative URL, user ID and password that 
+are set as info_value records for the task.  Once logged in, the virtual machine 
+name is verified and then the handler traverses the object to retrieve and 
+return the virtual machines ip address.
+
+This handler uses the VMWare VI (vSphere) Java API (see
+http://vijava.sourceforge.net/ for more information).  The api is deployed as a
+Java archive file (jar) and is stored in this handler's vendor directory.  If
+the vijava jar file is stored somewhere else on the classpath, the jar file
+stored in this handler's vendor directory is not used.  It is recommended that
+there are no vijava jar files stored anywhere on the classpath, and that all
+VMWare VSphere handlers contain the same vijava jar file in their vendor
+directory.

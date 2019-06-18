@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taskDefinition id="vmware_vsphere_virtualmachine_getipaddress" name="VMWare VSphere Virtual Machine Get Ip Address" schema_version="1.0" version="1">
+    <author>support@kineticdata.com</author>
+    <description>Gets an ip address from a Virtual Machine.</description>
+    <helpurl>http://ktc.kineticdata.com/handler/vmware_vsphere_virtualmachine_checkstatus/1</helpurl>
+    <visible>false</visible>
+    <deferrable>false</deferrable>
+    <parameters>
+        <parameter id="vm_name" label="VM Name" required="true" 
+            tooltip="The name of the Virtual Machine to get the ip address of." />
+    </parameters>
+    <handler name="vmware_vsphere_virtualmachine_getipaddress" version="1">
+        <infos>
+            <info name="server_url">&lt;%= @info['server_url'] %&gt;</info>
+            <info name="username">&lt;%= @info['username'] %&gt;</info>
+            <info name="password">&lt;%= @info['password'] %&gt;</info>
+            <info name="enable_debug_logging">&lt;%= @info['enable_debug_logging'] %&gt;</info>
+        </infos>
+        <parameters>
+            <parameter name='vm_name'>&lt;%= @parameters['vm_name'] %&gt;</parameter>
+        </parameters>
+    </handler>
+    <results format="xml">
+        <result name="ip_address"/>
+    </results>
+</taskDefinition>
