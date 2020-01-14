@@ -67,6 +67,7 @@ public class VMWareAdapter implements BridgeAdapter {
     private VCenterResourcePool vCenterResourcePool;
     private VCenterCluster vCenterCluster;
     private ContentLibrary contentLibrary;
+    private VMWareQualificationParser parser;
     
     /*---------------------------------------------------------------------------------------------
      * SETUP METHODS
@@ -77,6 +78,12 @@ public class VMWareAdapter implements BridgeAdapter {
         this.username = properties.getValue(Properties.USERNAME);
         this.password = properties.getValue(Properties.PASSWORD);
         this.url = properties.getValue(Properties.SERVER_URL);
+        
+        // Parser.parse will parse the query and exchange out any parameters 
+        // with their parameter values.
+        // ie. change the query username=<%=parameter["Username"]%> to
+        // username=test.user where parameter["Username"]=test.user
+        parser = new VMWareQualificationParser();
         
         this.login();
     }
@@ -118,6 +125,10 @@ public class VMWareAdapter implements BridgeAdapter {
             throw new BridgeError("Invalid Structure: " +
                 request.getStructure() + " is not a valid structure");
         }    
+        
+        request.setQuery(
+            parser.parse(request.getQuery(),request.getParameters())
+        );
         
         Count count;
         if (request.getStructure().equals("/vcenter/vm")) {
@@ -163,6 +174,10 @@ public class VMWareAdapter implements BridgeAdapter {
                 " is not a valid structure");
         }    
         
+        request.setQuery(
+            parser.parse(request.getQuery(),request.getParameters())
+        );
+        
         Record record;
         if (request.getStructure().equals("/vcenter/vm")) {
             record = this.vCenterVM.retrieve(request);
@@ -206,6 +221,10 @@ public class VMWareAdapter implements BridgeAdapter {
         if (!VALID_STRUCTURES.contains(request.getStructure())) {
             throw new BridgeError("Invalid Structure: " + request.getStructure() + " is not a valid structure");
         }
+        
+        request.setQuery(
+            parser.parse(request.getQuery(),request.getParameters())
+        );
         
         RecordList recordList;
         if (request.getStructure().equals("/vcenter/vm")) {
