@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.apache.commons.lang.time.DateUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.json.simple.JSONObject;
 import org.slf4j.LoggerFactory;
 
